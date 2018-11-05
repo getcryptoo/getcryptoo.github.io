@@ -1,0 +1,32 @@
+{
+  "name": "cryptoo-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "apidoc": "apidoc -i src -o apidoc/",
+    "start": "nodemon src/server.js",
+    "deploy": "pm2 start src/server.js --name cryptoo-example-server",
+    "initDb": "node tools/initDb.js",
+    "test": "mocha -u qunit --timeout 10000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "should": "^13.2.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "cryptoo": "0.0.1",
+    "express": "^4.16.4",
+    "knex": "^0.15.2",
+    "progress": "^2.0.1",
+    "sqlite3": "^4.0.3"
+  }
+}

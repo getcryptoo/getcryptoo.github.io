@@ -1,0 +1,12 @@
+.has-bg-img {
+    --tint: rgba(0, 0, 0, 0.8);
+    background-image: linear-gradient(var(--tint), var(--tint)), url(bg.jpg);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: scaleX(-1);
+}
+
+.has-bg-img > * {
+    transform: scaleX(-1); 
+}
