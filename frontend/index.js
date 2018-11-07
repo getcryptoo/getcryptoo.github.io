@@ -4,7 +4,7 @@ const qrcodeDiv = document.getElementById('qrcode');
 const qrcode = new QRCode(qrcodeDiv);
 
 const { href } = window.location;
-const baseURL = href.indexOf('localhost') || href.indexOf('192.168') || href.indexOf('127.0.0.1') ? href : 'https://api.getcryptoo.com';
+const baseURL = href.indexOf('localhost') !== -1 || href.indexOf('192.168') !== -1 || href.indexOf('127.0.0.1') !== -1 ? href : 'https://api.getcryptoo.com';
 const req = axios.create({
   baseURL,
 });
