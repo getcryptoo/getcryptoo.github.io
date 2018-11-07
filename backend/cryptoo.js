@@ -4,7 +4,6 @@ const config = require('./config');
 
 const cryptoo = new Cryptoo({
   network: config.bitcoinNetwork,
-  chainDataFolder: '.bc',
   secret: 'sample secret key',
 });
 
