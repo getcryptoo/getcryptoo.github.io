@@ -5,22 +5,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <link rel="icon" href="./favicon.ico">
-    <link rel="apple-touch-icon" href="./favicon.ico">
-    <link rel="bookmark" href="./favicon.ico">
-    <link rel="shortcut icon" href="./favicon.ico">
+    <link rel="icon" href="./assets/favicon.ico">
+    <link rel="apple-touch-icon" href="./assets/favicon.ico">
+    <link rel="bookmark" href="./assets/favicon.ico">
+    <link rel="shortcut icon" href="./assets/favicon.ico">
 
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="./assets/manifest.json">
 
+	<link rel="stylesheet" href="./assets/prism.css"/>
+    <link rel="stylesheet" href="./assets/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
-	<link href="./prism.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./bulma.min.css">
     <title>Cryptoo</title>
-    <script src="./qrcode.min.js"></script>
+    <script src="./assets/qrcode.min.js"></script>
 </head>
 
 <body>
@@ -39,12 +39,14 @@
                         </a>
                     </div>
                     <div class="column" style="width: 100%;">
-                        <!-- <img src="./codeSample.png" /> -->
+                        <!-- <img src="./assets/codeSample.png" /> -->
                         <pre style="width: 100%; display: inline-block;"><code class="language-javascript" style="background: transparent;">const Cryptoo = require('cryptoo');
 
 // Create a cryptoo instance
 // Start syncing blockchain data
-const cryptoo = new Cryptoo();
+const cryptoo = new Cryptoo({
+  secret: 'sample-secret-e34dc9dff1b8b04c2b678ff7bb1dd02181bfe31b045f77',
+});
 
 // Get recovery phrase to backup your HD wallet
 cryptoo.getRecoveryPhrase();
@@ -206,11 +208,9 @@ cryptoo.on('confirmedTx', ({ address, txHash, value }) => {
         </div>
     </section>
 
-    <script src="./axios.min.js"></script>
-    <script src="./prism.js"></script>
-
+    <script src="./assets/axios.min.js"></script>
+    <script src="./assets/prism.js"></script>
     <script src="./index.js"></script>
-
 </body>
 
 </html>

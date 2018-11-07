@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "apidoc": "apidoc -i src -o apidoc/",
-    "start": "nodemon src/server.js",
-    "deploy": "pm2 start src/server.js --name cryptoo-example-server",
+    "start": "node_modules/.bin/nodemon backend/server.js --ignore test",
+    "deploy": "NODE_ENV=production pm2 start backend/server.js --name cryptoo-example-server",
     "initDb": "node tools/initDb.js",
     "test": "mocha -u qunit --timeout 10000"
   },
@@ -18,13 +17,15 @@
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
+    "nodemon": "^1.18.6",
     "should": "^13.2.3"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
-    "cryptoo": "0.0.1",
+    "cryptoo": "^1.0.0",
     "express": "^4.16.4",
+    "express-rate-limit": "^3.3.0",
     "knex": "^0.15.2",
     "progress": "^2.0.1",
     "sqlite3": "^4.0.3"

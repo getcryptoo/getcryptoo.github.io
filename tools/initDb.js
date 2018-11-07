@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const knex = require('../src/knex');
-const { dbFilePath } = require('../src/config');
+const knex = require('../backend/knex');
+const { dbFilePath } = require('../backend/config');
 
 const initDBSQL = fs.readFileSync(path.join(__dirname, './initDb.sql'), 'utf8');
 

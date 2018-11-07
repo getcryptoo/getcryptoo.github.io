@@ -3,6 +3,12 @@ const addrInput = document.querySelector('.addr-input');
 const qrcodeDiv = document.getElementById('qrcode');
 const qrcode = new QRCode(qrcodeDiv);
 
+const { href } = window.location;
+const baseURL = href.indexOf('localhost') || href.indexOf('192.168') || href.indexOf('127.0.0.1') ? href : 'https://api.getcryptoo.com';
+const req = axios.create({
+  baseURL,
+});
+
 // https://stackoverflow.com/a/5166806/4674834
 function looksLikeMail(str) {
   const lastAtPos = str.lastIndexOf('@');
@@ -25,44 +31,51 @@ function paramCheck({ name, url, email }) {
   }
 }
 
-paymentBtn.addEventListener('click', async () => {
+let intervalHandle;
+paymentBtn.addEventListener('click', () => {
   const name = document.querySelector('.payment-name').value;
   const url = document.querySelector('.payment-url').value;
   const email = document.querySelector('.payment-email').value;
 
-  // TODO: validate infos
+  //  validate infos
   paramCheck({ name, url, email });
-  const res = await axios.post('/askForPayment', {
+
+  req.post('/askForPayment', {
     name,
     url,
     email,
-  });
+  }).then((res) => {
+    const addr = res.data.address;
+    const paymentId = res.data.id;
+    qrcode.makeCode(`bitcoin:${addr}`);
+    addrInput.value = addr;
+    addrInput.style.display = 'block';
 
-  const addr = res.data.address;
-  const paymentId = res.data.id;
-  qrcode.makeCode(`bitcoin:${addr}`);
-  addrInput.value = addr;
-  addrInput.style.display = 'block';
-
-  // start pulling the address to see if value is updated
-  const handle = setInterval(async () => {
-    const addressCheckRes = await axios.get('/address', {
-      params: {
-        id: paymentId,
-      },
-    });
-
-    const { value } = addressCheckRes.data;
-    if (value) {
-      renderTable();
-      clearInterval(handle);
-      qrcodeDiv.innerHTML = `
-        <div class="notification is-success">
-          Thanks for your donation, you shold find your donation on the "Lateset dontions" table
-        </div>
-      `;
+    if (intervalHandle) clearInterval(intervalHandle);
+    // start pulling the address to see if value is updated
+    intervalHandle = setInterval(() => {
+      req.get('/payment', {
+        params: {
+          id: paymentId,
+        },
+      }).then((res) => {
+        const { value } = res.data;
+        if (value) {
+          renderTable();
+          clearInterval(intervalHandle);
+          qrcodeDiv.innerHTML = `
+            <div class="notification is-success">
+              Thanks for your donation, you shold find your donation on the "Lateset dontions" table
+            </div>
+          `;
+        }
+      });
+    }, 1000);
+  }).catch(err => {
+    if (err.response.status === 429) {
+      alert('Too many request, only 3 requests allowed in 1 hour');
     }
-  }, 1000);
+  });
 });
 
 function renderTable() {
@@ -98,7 +111,7 @@ function renderTable() {
       .join('');
   }
 
-  axios.get('/addresses', {
+  req.get('/payments', {
     params: {
       orderBy: 'createdAt',
       order: 'desc', // 'asc' or 'desc'
@@ -110,7 +123,7 @@ function renderTable() {
     document.querySelector('.tbody-latest').innerHTML = paymetsToContent(payments);
   });
 
-  axios.get('/addresses', {
+  req.get('/payments', {
     params: {
       orderBy: 'value',
       order: 'desc', // 'asc' or 'desc'
