@@ -103,7 +103,7 @@ function renderTable() {
         return `
           <tr>
             ${nameTd}
-            <td> ${value} </td>
+            <td> ${value / 100000000} </td>
             <td> <a href="${txExploreUrl + txHash}"> ${txHash.slice(0, 3)}...${txHash.slice(-3)}</a></td>
           </tr>
         `;
