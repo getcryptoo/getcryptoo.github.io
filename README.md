@@ -1,4 +1,4 @@
-## Landing page and sample usage of [Cryptoo](https://github.com/getcryptoo/cryptoo)
+# Landing page and sample usage of [Cryptoo](https://github.com/getcryptoo/cryptoo)
 
 ## Work through the soure code
 
