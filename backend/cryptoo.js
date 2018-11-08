@@ -1,10 +1,12 @@
-const Cryptoo = require('cryptoo'); // TODO: use package
+const Cryptoo = require('cryptoo');
 const knex = require('./knex');
 const config = require('./config');
 
 const cryptoo = new Cryptoo({
   network: config.bitcoinNetwork,
   secret: 'sample secret key',
+  // chainDataFolder: '.bc',
+  // logBcoinLogInConsole: true,
 });
 
 cryptoo.on('unconfirmedTx', async (data) => {

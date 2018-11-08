@@ -23,7 +23,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
-    "cryptoo": "^1.0.0",
+    "cryptoo": "^1.0.1",
     "express": "^4.16.4",
     "express-rate-limit": "^3.3.0",
     "knex": "^0.15.2",
